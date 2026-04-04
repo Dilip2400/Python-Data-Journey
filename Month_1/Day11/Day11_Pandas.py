@@ -11,3 +11,4 @@ df= pd.DataFrame(data)
 print(df.iloc[0])
 print(df[df["Marks"]>70])
 df["Status"] = ["Pass", "Pass", "Pass", "Fail"]
+print(df[df["Marks"]>35])
