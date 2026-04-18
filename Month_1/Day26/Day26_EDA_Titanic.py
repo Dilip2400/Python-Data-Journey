@@ -98,3 +98,11 @@ print("\n Survival rate by Family Type: \n", df.groupby("FamilyType")["Survived"
 
 print("\n --- Insights ---\n")
 print(" 1. Rich Females had higher survival rate. \n 2. Poor men had the lowest survival rate. \n 3. People with small families survived more. ")
+
+#Male - Survival analysis
+male = df[df["Sex"] == "male"]
+print("\n Survival rate by Male: ", male.groupby("Pclass")["Survived"].mean())
+
+#Survival - Passengers travelling alone vs with Family
+print("\n Survival rate of Alone Passengers: ", df[df["FamilySize"] == 0]["Survived"].mean())
+print("\n Survival rate of Passengers with Family: ", df[df["FamilySize"] > 0]["Survived"].mean())
