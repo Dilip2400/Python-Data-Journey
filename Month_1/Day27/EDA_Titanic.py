@@ -4,17 +4,17 @@ df = pd.read_csv("Titanic.csv")
 print(df.head())
 
 #Data Frame information - to find data types and missing values in data
-print("\n Info: \n", df.info()) ####################################################3
+#print("\n Info: \n", df.info()) ####################################################3
 #Columns - to get column names (Names of data)
-print("\n Columns: \n", df.columns)  ################################################33
+#print("\n Columns: \n", df.columns)  ################################################33
 #Shape - To get no. of rows and columns of data
-print("\n Shape \n", df.shape) ######################################################
+#print("\n Shape \n", df.shape) ######################################################
 
 #Finding missing values --- .sum() gives total no. of missing values present in the data
-print("\n Missing Values: \n", df.isnull().sum()) #########################################################
+#print("\n Missing Values: \n", df.isnull().sum()) #########################################################
 
 #To find basic stats of data (Max, Min, Mean, STD) - Helps in understanding Data Range
-print(df.describe())      #######################################
+#print(df.describe())      #######################################
 
 #Questions --- 
 #Survival count.
@@ -96,9 +96,6 @@ df["FamilyType"] = df["FamilySize"].apply(family_type)
 
 print("\n Survival rate by Family Type: \n", df.groupby("FamilyType")["Survived"].mean())
 
-print("\n --- Insights ---\n")
-print(" 1. Rich Females had higher survival rate. \n 2. Poor men had the lowest survival rate. \n 3. People with small families survived more. ")
-
 #Male - Survival analysis
 male = df[df["Sex"] == "male"]
 print("\n Survival rate by Male: ", male.groupby("Pclass")["Survived"].mean())
@@ -107,3 +104,34 @@ print("\n Survival rate by Male: ", male.groupby("Pclass")["Survived"].mean())
 print("\n Survival rate of Alone Passengers: ", df[df["FamilySize"] == 0]["Survived"].mean())
 print("\n Survival rate of Passengers with Family: ", df[df["FamilySize"] > 0]["Survived"].mean())
 
+#Fare Understanding - Economic status
+print("\n Average Fare Price: \n", df["Fare"].mean())
+#print("\n Fare Summary: \n", df["Fare"].describe())
+
+#Fare division
+def fare_category(fare):
+    if fare<10:
+        return "Low"
+    elif fare < 50:
+        return "Medium"
+    else:
+        return "High"
+    
+df["FareCategory"] = df["Fare"].apply(fare_category)
+
+#Survival rate by Fare Category
+print("\n Survival rate by Fare Category: \n", df.groupby("FareCategory")["Survived"].mean())
+
+#Correlation
+print("\n Correlation: \n", df.corr(numeric_only=True))
+
+#Outliers
+print("\n Maximum Fare: \n", df["Fare"].max())
+print("\n Minimum Fare: \n", df["Fare"].min())
+
+#Multi Factor Analysis - Survival rate by Fare and Class
+
+print("\n Survival rate by Fare and Class: \n", df.groupby(["Fare", "Pclass"])["Survived"].mean())
+
+print("\n --- Insights ---\n")
+print(" 1. High Fare passengers had better survival rate. \n 2. Fare is positively related to survival. \n 3. First Class passengers paid higher fare and survived, \n 4. Lower fare passengers had low survival rate")
