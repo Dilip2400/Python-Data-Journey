@@ -45,5 +45,5 @@ print("\n Topper: \n", df.loc[df["Marks"].idxmax()])
 #Passed Students
 print("\n Passed Students: \n", df[df["Status"]=="Pass"])
 
-#Grade Distribution
+#Grade Distribution -- Count of grades given.
 print("\n Grade Count: \n", df["Grades"].value_counts())
