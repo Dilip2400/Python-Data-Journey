@@ -22,10 +22,10 @@ print(df)
 ## Real Mini Use Case
 
 #Simulate Marks
-marks = np.random.randint(30,100, 10)  #Generates marks 
+marks = np.random.randint(30,100, 10)  #Generates marks between 30 - 100
 
 #Create Data Frame
-df = pd.DataFrame({"Marks": marks})
+df = pd.DataFrame({"Marks": marks}) 
 
 #Add Bonus using NumPy
 df["UpdatedMarks"] = df["Marks"]+5
@@ -34,3 +34,4 @@ df["UpdatedMarks"] = df["Marks"]+5
 df["Status"] = np.where(df["UpdatedMarks"]>=50, "Pass", "Fail")
 
 print(df)
+
