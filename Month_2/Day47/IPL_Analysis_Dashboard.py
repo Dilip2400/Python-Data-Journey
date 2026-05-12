@@ -77,6 +77,7 @@ axes[1,1].set_title("Runs Across Match Phases")
 
 plt.suptitle("IPL Analytics Dashboard", fontsize=20)
 plt.tight_layout()
+plt.savefig("ipl_dashboard.png")
 plt.show()
 
 print("\n=== KEY INSIGHTS ===\n")
