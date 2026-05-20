@@ -226,6 +226,58 @@ WHERE total_runs>
     SELECT avg_score
     FROM avg_runs
 );
+
+
+# Top 3 teams with Highest wins
+
+WITH team_wins AS
+(
+    SELECT
+        winner,
+        COUNT(*) AS wins
+    FROM matches
+    GROUP BY winner
+)
+
+SELECT * FROM team_wins
+ORDER BY wins DESC
+LIMIT 3;
+
+#Players scoring above average total runs
+
+WITH player_scores AS
+(
+    SELECT
+        batter,
+        SUM(batsman_runs) AS total_runs
+    FROM deliveries
+    GROUP BY batter
+)
+
+SELECT *
+FROM player_scores
+WHERE total_runs >
+(
+    SELECT AVG(total_runs)
+    FROM player_scores
+);
+
+# Top player per season
+WITH season_runs AS
+(
+    SELECT
+        m.season,
+        d.batter,
+        SUM(d.batsman_runs) AS total_runs
+    FROM deliveries d
+    INNER JOIN matches m
+    ON d.match_id = m.id
+    GROUP BY m.season, d.batter
+)
+
+SELECT *
+FROM season_runs
+ORDER BY season, total_runs DESC;
 """ 
 
 result_x = pd.read_sql(query,conn)
