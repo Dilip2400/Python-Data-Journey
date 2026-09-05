@@ -1,0 +1,249 @@
+DAY 76 — RESIDUAL ANALYSIS
+
+Topic:
+Residual Analysis — Understanding Why a Regression Model Makes Mistakes
+
+1. WHAT IS A RESIDUAL?
+
+A residual is the difference between the actual value and the value predicted by the model.
+
+Residual = Actual - Predicted
+
+Interpretation:
+- Positive residual → Model underpredicted.
+- Negative residual → Model overpredicted.
+- Residual close to 0 → Prediction was close to the actual value.
+
+Example:
+Actual = 100
+Predicted = 90
+
+Residual = 100 - 90 = +10
+
+The model underpredicted by 10.
+
+
+2. WHY DO WE ANALYZE RESIDUALS?
+
+Regression metrics such as MAE, MSE, RMSE and R² tell us how well a model performs overall.
+
+Residual analysis asks a deeper question:
+
+"HOW is the model making its mistakes?"
+
+Two models can have similar overall metrics but very different error patterns.
+
+Residuals help us discover:
+- Systematic errors
+- Outliers
+- Underprediction or overprediction
+- Nonlinear relationships
+- Possible missing features
+- Other problems that a single metric may hide
+
+
+3. RANDOM VS SYSTEMATIC ERRORS
+
+A good regression model should ideally have residuals that are:
+- Randomly scattered
+- Roughly centered around zero
+- Without an obvious pattern
+
+Example of relatively random residuals:
+
++2, -3, +1, -2, +3, -1, +2, -2
+
+The errors move around zero without an obvious structure.
+
+A systematic pattern is a warning sign.
+
+Example:
+
+-1, -3, -5, -7, -9, +2, +4, +6, +8, +10
+
+The residuals follow a clear pattern instead of behaving randomly.
+
+This suggests the model may be systematically missing something.
+
+
+4. IMPORTANT RESIDUAL PATTERNS
+
+A. Mostly positive residuals
+
+The model is generally predicting values that are too low.
+
+Example:
++2, +4, +3, +6, +5
+
+Possible interpretation:
+The model tends to underpredict.
+
+B. Mostly negative residuals
+
+The model is generally predicting values that are too high.
+
+Example:
+-2, -4, -3, -5, -6
+
+Possible interpretation:
+The model tends to overpredict.
+
+C. Residuals increase as the target/prediction increases
+
+Example:
+
+Small values → small errors
+Medium values → medium errors
+Large values → large errors
+
+Possible clue:
+The model may not be capturing the relationship properly.
+
+D. Curved residual pattern
+
+If residuals form a curve instead of random scatter, the relationship may be nonlinear.
+
+This can indicate that a simple Linear Regression model is not capturing the underlying relationship.
+
+E. One very large residual
+
+Example:
+
++2, -1, +3, -2, +40
+
+The +40 is unusual.
+
+Possible causes:
+- Outlier
+- Data-entry issue
+- Unusual real-world observation
+- Missing feature
+- Model limitation
+
+Important:
+DO NOT automatically delete an outlier.
+Investigate it first.
+
+
+5. RESIDUALS AS CLUES
+
+Residual analysis is similar to detective work.
+
+The residual itself does not automatically tell us the solution.
+
+It tells us where to investigate.
+
+Example:
+
+If expensive houses are consistently underpredicted:
+
+Residuals:
++2, +3, +5, +8, +12
+
+Possible questions:
+- Is the relationship actually nonlinear?
+- Are important features missing?
+- Is the training data representative?
+- Are expensive houses different from the rest of the dataset?
+- Does the model need a different form?
+
+
+6. EXAMPLE
+
+Actual:
+[50, 60, 70, 80, 100]
+
+Predicted:
+[48, 63, 68, 75, 90]
+
+Residuals:
+
+[2, -3, 2, 5, 10]
+
+Interpretation:
+- The model underpredicted most observations.
+- The errors become larger toward the higher values.
+- This may indicate a systematic issue.
+- More investigation is needed.
+
+
+7. RESIDUAL PLOT INTUITION
+
+When residuals are plotted against predicted values:
+
+X-axis → Predicted values
+Y-axis → Residuals
+
+Ideally, we want something approximately like:
+
+        •       •
+   •       •
+---------------------- 0
+      •    •
+ •          •
+
+Random scatter around zero is generally a good sign.
+
+A visible shape or trend is a warning sign.
+
+
+8. KEY DIFFERENCE: METRICS VS RESIDUAL ANALYSIS
+
+Metrics answer:
+
+MAE  → How wrong are we on average?
+MSE  → How heavily are large errors punished?
+RMSE → How large are errors in the original units, with large errors emphasized?
+R²   → How much variation does the model explain compared with a mean baseline?
+
+Residual analysis answers:
+
+"WHERE and HOW is the model making mistakes?"
+
+
+9. IMPORTANT DATA SCIENTIST MINDSET
+
+Do not immediately say:
+
+"The model is bad."
+
+Instead say:
+
+"There appears to be a residual pattern or unusual observation. We need to investigate it."
+
+A high R² or low RMSE does not automatically mean the model is perfect.
+
+A model can have good overall metrics while still making systematic mistakes for certain groups or ranges of data.
+
+
+10. DAY 76 CORE TAKEAWAY
+
+Residual = Actual - Predicted
+
+Positive residual → Underprediction
+Negative residual → Overprediction
+Residual near zero → Accurate prediction
+
+Good residual behavior:
+- Roughly random
+- Around zero
+- No obvious structure
+
+Warning signs:
+- Clear trend
+- Curve
+- Mostly positive/negative
+- Increasing error
+- Very large outlier
+
+MOST IMPORTANT IDEA:
+
+"Metrics tell me how well my model performs overall.
+Residuals help me understand how and where my model is failing."
+
+
+DAY 76 STATUS:
+COMPLETED
+
+NEXT:
+Day 77 — Residual Plots and visual diagnosis of regression models.
