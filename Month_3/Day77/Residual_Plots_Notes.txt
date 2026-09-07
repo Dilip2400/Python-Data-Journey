@@ -1,0 +1,57 @@
+Day 77 — Residual Plots: Seeing Why Your Model Is Wrong
+
+Topics Covered
+- Learned how residual plots help diagnose regression models.
+- Residual = Actual - Predicted.
+- Positive residual means underprediction; negative residual means overprediction.
+- Residual plots generally use predicted values on the X-axis and residuals on the Y-axis.
+- A good residual plot has residuals randomly scattered around zero with no obvious pattern.
+- Residual plots can reveal systematic problems that MAE, MSE, RMSE, and R² may hide.
+
+Experiment 1 — Random-looking residuals
+Actual:    [10, 20, 30, 40, 50, 60, 70, 80]
+Predicted: [11, 19, 31, 38, 52, 57, 71, 77]
+Residuals: [-1, 1, -1, 2, -2, 3, -1, 3]
+
+Observation:
+- Positive and negative residuals are balanced.
+- Errors are reasonably close to zero.
+- No obvious systematic pattern.
+- This residual behavior is generally comfortable for a linear regression model.
+
+Experiment 2 — Increasing residual pattern
+Actual:    [10, 20, 30, 40, 50, 60, 70, 80]
+Predicted: [12, 21, 29, 38, 47, 56, 64, 71]
+Residuals: [-2, -1, 1, 2, 3, 4, 6, 9]
+
+Observation:
+- Errors gradually increase as values increase.
+- The model increasingly underpredicts larger values.
+- RMSE can be useful when large errors are more costly because it penalizes large errors more than MAE.
+- However, changing the metric does not fix the underlying residual pattern.
+- A systematic trend requires investigation.
+
+Experiment 3 — Curved residual pattern
+Actual:    [1, 4, 9, 16, 25, 36, 49, 64]
+Predicted: [8, 7, 8, 13, 24, 39, 58, 81]
+Residuals: [-7, -3, 1, 3, 1, -3, -9, -17]
+
+Observation:
+- Residuals form a clear curved/systematic pattern.
+- The underlying relationship is essentially quadratic, not linear.
+- A straight-line model is too simple to capture this relationship.
+- Residual plots can reveal when a linear model may be inadequate.
+
+Key Takeaways
+- Metrics tell us how much error the model has.
+- Residual plots help us understand how and where the model makes mistakes.
+- Random residuals around zero are generally desirable.
+- Trends, curves, clusters, or unusually large residuals are signals to investigate.
+- RMSE is an evaluation metric, not a solution to systematic residual patterns.
+- Residual analysis is an important part of regression model diagnosis.
+- Data Scientist mindset: don't just ask "How accurate is my model?" Also ask "Why is my model making these mistakes?"
+
+Day 77 Status
+- Learned residual plots and visual model diagnosis.
+- Practiced identifying random, systematic, and curved residual patterns.
+- Connected residual patterns to model selection and potential nonlinear relationships.
