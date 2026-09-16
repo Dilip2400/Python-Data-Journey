@@ -1,0 +1,84 @@
+Day 80 — Logistic Regression
+
+- Regression predicts continuous numerical values: price, salary, delivery time.
+- Classification predicts categories/classes: spam/not spam, fraud/not fraud, pass/fail.
+
+Classification targets:
+- Binary classes can be represented as 0 and 1.
+- Example: 0 = Fail, 1 = Pass.
+- Class labels can also be strings or other labels.
+- Decimal probabilities are different from class labels; probabilities are produced by the model.
+
+Logistic Regression:
+- Logistic Regression is a classification algorithm despite its name.
+- It learns a relationship between features and the probability of belonging to a class.
+- For binary classification, the probability is between 0 and 1.
+
+Sigmoid intuition:
+- Logistic Regression uses a sigmoid/logistic function to transform a raw model score into a value between 0 and 1.
+- Think of this as a probability/confidence-like output.
+- We focused on intuition rather than memorizing the formula.
+
+Probability → Class:
+- model.predict(X) gives the final predicted class.
+- model.predict_proba(X) gives probabilities for the classes.
+- Example [0.78, 0.22] means Fail = 78%, Pass = 22%, so prediction = Fail (0).
+- Example [0.06, 0.94] means Fail = 6%, Pass = 94%, so prediction = Pass (1).
+
+Threshold:
+- A threshold converts probability into a final class decision.
+- A common default decision boundary for binary classification is 0.5.
+- Conceptually: probability >= 0.5 → class 1; probability < 0.5 → class 0.
+- Changing the threshold changes the decision rule; it does not necessarily retrain the model.
+- Custom threshold implementation was not yet practiced.
+
+Important intuition:
+- Near the decision boundary, the model may be less certain.
+- Far from the boundary, it may be more confident.
+- Example: 2 study hours → likely Fail; 6 study hours → likely Pass; 3.5 hours → closer to the boundary, but not necessarily exactly 0.50.
+
+Day 80 coding workflow:
+1. Import NumPy.
+2. Import train_test_split.
+3. Import LogisticRegression.
+4. Define X (features) and Y (classification target).
+5. Split training/testing data.
+6. Create LogisticRegression().
+7. Train with model.fit().
+8. Predict with model.predict().
+9. Inspect probabilities with model.predict_proba().
+10. Use basic Python loops/if-else when useful for interpreting model output.
+
+Example:
+X = Study Hours
+Y = Pass/Fail
+0 = Fail
+1 = Pass
+
+Study Hours: 1, 2, 3, 4, 5, 6, 7, 8
+Class:        0, 0, 0, 1, 1, 1, 1, 1
+
+Key mental model:
+Features
+  ↓
+Logistic Regression
+  ↓
+Probability
+  ↓
+Decision rule / threshold
+  ↓
+Class prediction
+
+Main takeaways:
+- Regression asks: How much/how many?
+- Classification asks: Which class?
+- Logistic Regression is a classification algorithm.
+- predict() gives the final class.
+- predict_proba() gives class probabilities.
+- Probability and class label are not the same.
+- Thresholding converts probability into a class decision.
+- Business consequences can influence the appropriate threshold.
+- Future topics: False Positives, False Negatives, Confusion Matrix, Precision, Recall, F1-score and ROC-AUC.
+
+Day 80 goal:
+Understand Logistic Regression conceptually before memorizing formulas or syntax, while gradually developing the ability to build classification models independently.
