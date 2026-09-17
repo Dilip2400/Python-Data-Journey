@@ -1,0 +1,179 @@
+DAY 81 — CONFUSION MATRIX & CLASSIFICATION METRICS
+
+1. Classification Evaluation
+- Classification evaluation is not only about how many predictions are correct.
+- We also need to understand what kinds of mistakes the model makes.
+
+2. Confusion Matrix
+
+True Positive (TP)
+- Actual = Positive
+- Prediction = Positive
+- Correctly detected a positive.
+
+True Negative (TN)
+- Actual = Negative
+- Prediction = Negative
+- Correctly detected a negative.
+
+False Positive (FP)
+- Actual = Negative
+- Prediction = Positive
+- False alarm.
+
+False Negative (FN)
+- Actual = Positive
+- Prediction = Negative
+- Missed a real positive.
+
+Easy memory:
+- FP = False alarm
+- FN = Missed positive
+
+                 Prediction
+              Negative  Positive
+Actual Negative   TN       FP
+Actual Positive   FN       TP
+
+3. Cricket Example
+1 = Six, 0 = Not Six
+
+- Ball 1: Actual 1, Prediction 1 -> TP
+- Ball 2: Actual 0, Prediction 0 -> TN
+- Ball 3: Actual 1, Prediction 0 -> FN
+- Ball 4: Actual 0, Prediction 1 -> FP
+- Ball 5: Actual 1, Prediction 1 -> TP
+
+4. Accuracy
+Question:
+"Out of all predictions, how many were correct?"
+
+Accuracy = (TP + TN) / (TP + TN + FP + FN)
+
+Accuracy can be misleading with imbalanced classes.
+
+Example:
+10,000 transactions:
+- 9,900 legitimate
+- 100 fraud
+
+A model predicting every transaction as legitimate gets 99% accuracy,
+but detects ZERO fraud cases.
+
+5. Precision
+Question:
+"When the model predicts Positive, how often is it actually Positive?"
+
+Precision = TP / (TP + FP)
+
+Mental model:
+Precision = "Can I trust my positive prediction?"
+
+Example:
+20 transactions flagged as fraud:
+- TP = 15
+- FP = 5
+
+Precision = 15 / 20 = 75%
+
+6. Recall
+Question:
+"Out of all actual Positive cases, how many did the model catch?"
+
+Recall = TP / (TP + FN)
+
+Mental model:
+Recall = "How many real positives did I catch?"
+
+Example:
+100 actual fraud cases:
+- TP = 15
+- FN = 85
+
+Recall = 15 / 100 = 15%
+
+Easy distinction:
+- Precision -> Trust the positive predictions.
+- Recall -> Catch the actual positives.
+
+7. Precision vs Recall — Business Trade-off
+There is no universally best metric.
+The priority depends on the cost of False Positives vs False Negatives.
+
+Disease screening:
+- Missing a real disease case can be serious.
+- Recall may therefore be prioritized.
+- This can mean accepting more false positives.
+
+Fraud detection:
+- Precision may matter because unnecessary investigations can be costly.
+- Exact priorities depend on the business costs.
+
+Spam filtering:
+- Precision can matter because legitimate emails should not be incorrectly classified as spam.
+
+Security/threat detection:
+- Recall can be important because missing a genuine threat can be costly.
+
+8. F1 Score
+When both Precision and Recall matter, F1-score combines them.
+
+F1 = 2 * (Precision * Recall) / (Precision + Recall)
+
+Mental model:
+- F1-score gives a balance between Precision and Recall.
+
+9. Disease Detection Example
+
+Model A:
+- Precision = 90%
+- Recall = 40%
+
+Model B:
+- Precision = 70%
+- Recall = 85%
+
+For serious disease screening where missing actual disease cases is the bigger concern,
+Model B would be investigated further because it has higher Recall.
+
+This does not mean Model B is universally better.
+The appropriate metric depends on the real-world consequences of FP and FN.
+
+10. Key Mental Model
+
+Confusion Matrix
+    ↓
+Understand the types of mistakes
+    ↓
+Accuracy
+    ↓
+Overall correctness
+    ↓
+Precision
+    ↓
+Trustworthiness of positive predictions
+    ↓
+Recall
+    ↓
+Ability to catch actual positives
+    ↓
+F1 Score
+    ↓
+Balance between Precision and Recall
+
+11. Day 81 Takeaways
+- Learned TP, TN, FP and FN.
+- Learned why accuracy can be misleading with imbalanced data.
+- Learned Precision.
+- Learned Recall.
+- Understood Precision vs Recall.
+- Understood that metric choice depends on business consequences.
+- Learned the Precision–Recall trade-off.
+- Learned the purpose of F1-score.
+- Practiced fraud and disease-detection examples.
+- Connected classification metrics to real-world decision making.
+
+NEXT:
+Build a confusion matrix in Python.
+Then calculate TP, TN, FP, FN, Accuracy, Precision, Recall and F1-score ourselves
+before using sklearn metrics.
