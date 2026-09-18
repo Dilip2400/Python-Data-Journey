@@ -1,0 +1,166 @@
+DAY 82 — CODING CONFUSION MATRIX & CLASSIFICATION METRICS
+
+1. Goal
+- Implement TP, TN, FP, FN in Python.
+- Calculate Accuracy, Precision, Recall and F1 manually.
+- Verify everything with scikit-learn.
+
+2. Dataset
+actual = [1, 1, 1, 1, 0, 0, 0, 0]
+prediction = [1, 1, 0, 0, 1, 0, 0, 0]
+
+1 = Positive/Fraud
+0 = Negative/Legitimate
+
+3. Manual Confusion Matrix
+- Actual 1, Prediction 1 -> TP
+- Actual 0, Prediction 0 -> TN
+- Actual 0, Prediction 1 -> FP
+- Actual 1, Prediction 0 -> FN
+
+Result:
+TP = 2
+TN = 3
+FP = 1
+FN = 2
+
+4. Python: Index vs Value
+numbers = [10, 20, 30]
+
+INDEX:  0   1   2
+VALUE: 10  20  30
+
+- numbers[1] gives the value 20.
+- for x in numbers gives the VALUES, not indexes.
+- For today's comparison we needed indexes:
+  for i in range(len(actual)):
+- i is the index.
+- actual[i] and prediction[i] are the values at that index.
+
+Also learned that enumerate() can provide index and value together, but it was not needed here.
+
+5. Debugging Lessons
+Initial:
+for i in actual and prediction:
+This did not create indexes.
+
+Incorrect enumerate attempt:
+for i in enumerate(actual, prediction):
+enumerate() does not take two lists in this way.
+
+Correct:
+for i in range(len(actual)):
+
+Another bug:
+prediction == 1
+compares the entire prediction list with 1.
+
+Correct:
+prediction[i] == 1
+
+Key distinction:
+prediction = entire list
+prediction[i] = individual value
+
+6. Manual Metrics
+Accuracy = (TP + TN) / (TP + TN + FP + FN)
+Precision = TP / (TP + FP)
+Recall = TP / (TP + FN)
+F1 = 2 * (Precision * Recall) / (Precision + Recall)
+
+With TP=2, TN=3, FP=1, FN=2:
+Accuracy = 5/8 = 0.625 = 62.5%
+Precision = 2/3 = 0.666666...
+Recall = 2/4 = 0.5 = 50%
+F1 = 4/7 = 0.571428...
+
+7. scikit-learn
+Used:
+from sklearn.metrics import confusion_matrix
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+
+confusion_matrix(actual, prediction) produced:
+[[3 1]
+ [2 2]]
+
+Default binary layout:
+              Predicted
+              0       1
+Actual 0      TN      FP
+       1      FN      TP
+
+Therefore:
+TN=3, FP=1, FN=2, TP=2.
+
+Metric functions returned:
+Accuracy = 0.625
+Precision = 0.6666666666666666
+Recall = 0.5
+F1 Score = 0.5714285714285714
+
+Manual and sklearn results matched exactly.
+
+8. Function vs Function Result
+- accuracy_score is the function itself.
+- accuracy_score(actual, prediction) calls the function and returns a value.
+- accuracy = accuracy_score(actual, prediction) stores that value.
+This distinction helped debug why Python printed a function address instead of a metric.
+
+9. Why Learn the Manual Calculation?
+- Understand what libraries are doing behind the scenes.
+- Debug metric results.
+- Understand why a metric has a particular value.
+- Avoid treating ML libraries as black boxes.
+- Build real ML reasoning rather than only memorizing APIs.
+
+10. Business Reasoning
+For fraud detection, if the business says:
+“We absolutely don't want to miss fraudulent transactions,”
+then FN is the critical error because:
+Actual fraud -> model predicts legitimate.
+
+Recall becomes especially important because:
+Recall = TP / (TP + FN)
+
+Example:
+Model A: TP=90, FN=10 -> Recall=90%
+Model B: TP=70, FN=30 -> Recall=70%
+
+The appropriate metric depends on the business cost of FP vs FN.
+
+11. FP vs FN Memory Shortcut
+Ask: “What did the MODEL say?”
+
+FP:
+- Actual = Negative
+- Model = Positive
+- False Positive = model falsely said YES.
+- Also think: false alarm.
+
+FN:
+- Actual = Positive
+- Model = Negative
+- False Negative = model falsely said NO.
+- Also think: missed positive.
+
+Quick table:
+                 MODEL
+              Says YES    Says NO
+Actual YES       TP          FN
+Actual NO        FP          TN
+
+12. Day 82 Takeaways
+- Built TP/TN/FP/FN counting logic with a Python loop.
+- Strengthened list index vs value understanding.
+- Used range(len(actual)) to iterate through indexes.
+- Debugged list-vs-value mistakes.
+- Manually calculated Accuracy, Precision, Recall and F1.
+- Used sklearn confusion_matrix().
+- Used sklearn classification metric functions.
+- Verified manual calculations against sklearn.
+- Connected metrics to business consequences.
+- Strengthened independent Python/ML debugging.
+- Reinforced the FP vs FN distinction.
+
+NEXT:
+Continue classification evaluation with threshold changes, Precision/Recall trade-offs, and later ROC/AUC.
